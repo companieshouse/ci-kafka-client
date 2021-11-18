@@ -1,7 +1,7 @@
 FROM amazonlinux:latest
 
-ARG JDK_VERSION=1.8.0
 ARG CONFLUENT_KAFKA_VERSION=2.11
+ARG JDK_VERSION=1.8.0
 ARG YUM_REPOSITORY=yum-repository.platform.aws.chdev.org
 
 COPY resources/confluent.repo /etc/yum.repos.d/confluent.repo
