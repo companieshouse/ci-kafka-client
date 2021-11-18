@@ -2,7 +2,5 @@
 name=Confluent repository for 3.0.x packages
 baseurl=http://packages.confluent.io/rpm/3.0
 gpgcheck=1
-# Use the packages... key for version 3.0 of Confluent Kafka and the other for older versions
-#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-confluent
 gpgkey=http://packages.confluent.io/rpm/3.0/archive.key
 enabled=1
