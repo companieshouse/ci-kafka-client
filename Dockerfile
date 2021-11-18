@@ -5,7 +5,6 @@ ARG JDK_VERSION=1.8.0
 ARG YUM_REPOSITORY=yum-repository.platform.aws.chdev.org
 
 COPY resources/confluent.repo /etc/yum.repos.d/confluent.repo
-COPY resources/RPM-GPG-KEY-confluent /etc/pki/rpm-gpg/RPM-GPG-KEY-confluent
 
 RUN yum update -y && \
     yum install -y java-${JDK_VERSION}-openjdk.x86_64 \
