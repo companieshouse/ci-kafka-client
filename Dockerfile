@@ -9,7 +9,7 @@ RUN wget https://archive.apache.org/dist/kafka/0.11.0.0/kafka_${SCALA_VERSION}-0
     tar -xzf kafka_${SCALA_VERSION}-0.11.0.0.tgz && \
     rm kafka_${SCALA_VERSION}-0.11.0.0.tgz
 
-FROM amazonlinux:2023
+FROM amazonlinux:latest
 
 ARG KAFKA_HOME=/opt/kafka
 ARG KAFKA_VERSION=0.11.0.0
