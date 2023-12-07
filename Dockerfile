@@ -5,25 +5,25 @@ ARG SCALA_VERSION=2.11
 
 RUN apk update && apk add --no-cache wget tar gzip
 
-RUN wget https://archive.apache.org/dist/kafka/0.11.0.0/kafka_${SCALA_VERSION}-0.11.0.0.tgz && \
-    tar -xzf kafka_${SCALA_VERSION}-0.11.0.0.tgz && \
-    rm kafka_${SCALA_VERSION}-0.11.0.0.tgz
+RUN wget https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+    tar -xzf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+    rm kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
-FROM amazonlinux:latest
+FROM amazonlinux:2
 
 ARG KAFKA_HOME=/opt/kafka
 ARG KAFKA_VERSION=0.11.0.0
 ARG SCALA_VERSION=2.11
 ARG YUM_REPOSITORY=yum-repository.platform.aws.chdev.org
 
-ENV PATH "${PATH}:${KAFKA_HOME}/bin"
+ENV PATH="${PATH}:${KAFKA_HOME}/bin"
 
 COPY --from=builder /kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION}
 
 RUN ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ${KAFKA_HOME}
 
 RUN yum update -y && \
-    yum install -y java-21-amazon-corretto-headless &&  \
+    yum install -y java-17-amazon-corretto-headless &&  \
     yum clean all
 
 RUN rpm --import http://${YUM_REPOSITORY}/RPM-GPG-KEY-platform-noarch && \
