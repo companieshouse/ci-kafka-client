@@ -3,12 +3,11 @@ FROM alpine:latest as builder
 ARG KAFKA_VERSION=3.1.0
 ARG SCALA_VERSION=2.13
 
-RUN apk update && \
-    apk add curl && \
-    curl https://dlcdn.apache.org/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -o kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
-    tar -zxvf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
-
-FROM amazonlinux:latest
+RUN wget https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -O /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+    tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt && \ 
+    rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
+    
+FROM amazonlinux:2
 
 ARG KAFKA_HOME=/opt/kafka
 ARG KAFKA_VERSION=3.1.0
@@ -17,7 +16,7 @@ ARG YUM_REPOSITORY=yum-repository.platform.aws.chdev.org
 
 ENV PATH "${PATH}:${KAFKA_HOME}/bin"
 
-COPY --from=builder /kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION}
+COPY --from=builder /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka
 
 RUN ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ${KAFKA_HOME}
 
