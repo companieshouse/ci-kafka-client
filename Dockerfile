@@ -9,7 +9,7 @@ RUN wget https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VE
     tar -xzf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
     rm kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
-FROM amazonlinux:2
+FROM amazonlinux:2023
 
 ARG KAFKA_HOME=/opt/kafka
 ARG KAFKA_VERSION=0.11.0.0
@@ -23,7 +23,7 @@ COPY --from=builder /kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka_${SCALA_
 RUN ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ${KAFKA_HOME}
 
 RUN yum update -y && \
-    yum install -y java-17-amazon-corretto-headless &&  \
+    yum install -y java-21-amazon-corretto-headless &&  \
     yum clean all
 
 RUN rpm --import http://${YUM_REPOSITORY}/RPM-GPG-KEY-platform-noarch && \
