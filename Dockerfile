@@ -5,7 +5,7 @@ ARG SCALA_VERSION=2.13
 
 RUN apk update && apk add --no-cache wget tar gzip 
 
-RUN wget --no-check-certificate https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+RUN wget https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
     tar -xzf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
     rm kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
     
